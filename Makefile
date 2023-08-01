@@ -10,7 +10,7 @@ clean:
 	rm -rf build
 	rm -rf .pytest_cache
 	rm -rf .pdm-build
-	rm -rf macprefs.egg-info
+	rm -rf **/macprefs.egg-info
 
 setup:
 	pdm install
