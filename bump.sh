@@ -30,8 +30,9 @@ function bump_version() {
   sed -i "" "s/${current_version}/${new_version}/" macprefs/__init__.py
 
 
+  local bump_upper=${bump_type^^}
   git add macprefs/__init__.py
-  git commit -m "${bump_type^^} Bump version to ${new_version}"
+  git commit -m "${bump_upper} Bump version to ${new_version}"
   git push origin master
 
   echo -n "$new_version"
