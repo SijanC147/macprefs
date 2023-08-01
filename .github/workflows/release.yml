@@ -13,6 +13,7 @@ jobs:
         id: asset_name_getter
         run: |
           VERSION=${{ github.event.release.tag_name }} && VERSION=${VERSION#v}
+          echo "VERSION_NUM=$VERSION" >> $GITHUB_OUTPUT
           echo "ASSET_NAME=macprefs-$VERSION.tar.gz" >> $GITHUB_OUTPUT
 
       - name: Checkout code
@@ -50,10 +51,16 @@ jobs:
         run: |
           URL="${{ github.event.repository.html_url }}/releases/download/${{ github.event.release.tag_name }}/${{ steps.asset_name_getter.outputs.ASSET_NAME }}"
           SHA256=$(cat ./dist/${{ steps.asset_name_getter.outputs.ASSET_NAME }} | shasum -a 256 | cut -f 1 -d ' ')
-          VERSION=${{ github.event.release.tag_name }} && VERSION=${VERSION#v}
-          sed -i "s|^  url \".*\"|  url \"$URL\"|" ./Formula/macprefs.rb
-          sed -i "s/^  version \".*\"/  version \"$VERSION\"/" ./Formula/macprefs.rb
-          sed -i "s/^  sha256 \".*\"/  sha256 \"$SHA256\"/" ./Formula/macprefs.rb
+          VERSION=${{ steps.asset_name_getter.outputs.VERSION_NUM }}
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            sed -i "" "s|^  url \".*\"|  url \"$URL\"|" ./Formula/macprefs.rb
+            sed -i "" "s/^  version \".*\"/  version \"$VERSION\"/" ./Formula/macprefs.rb
+            sed -i "" "s/^  sha256 \".*\"/  sha256 \"$SHA256\"/" ./Formula/macprefs.rb
+          else
+            sed -i "s|^  url \".*\"|  url \"$URL\"|" ./Formula/macprefs.rb
+            sed -i "s/^  version \".*\"/  version \"$VERSION\"/" ./Formula/macprefs.rb
+            sed -i "s/^  sha256 \".*\"/  sha256 \"$SHA256\"/" ./Formula/macprefs.rb
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
 
