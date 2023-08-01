@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function bump_version() {
   local bump_type=$1
@@ -28,11 +28,10 @@ function bump_version() {
 
   # Update the version in the file
   sed -i "" "s/${current_version}/${new_version}/" macprefs/__init__.py
+  .venv/bin/black macprefs/__init__.py
 
-
-  local bump_upper=${bump_type^^}
   git add macprefs/__init__.py
-  git commit -m "${bump_upper} Bump version to ${new_version}"
+  git commit -m "${bump_type^^} Bump version to ${new_version}"
   git push origin master
 
   echo -n "$new_version"
