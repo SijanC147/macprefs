@@ -1,6 +1,6 @@
 [project]
 name = "macprefs"
-version = "2.0.14"
+version = "2.0.15"
 description = "Backup and Restore your Mac System and App Preferences"
 authors = [{ name = "Sean Bugeja", email = "seanbugeja23@gmail.com" }]
 dependencies = [
