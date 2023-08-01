@@ -1,5 +1,14 @@
 # Mac Preferences Backup
 
+> **Note**
+> <br>
+> This is basically all thanks to the incredible work of [Clint M](https://github.com/clintmod/macprefs), I take no credit for the actual logic that goes into the backup process, all I did was upgrade the build pipeline for this to make the latest version available on homebrew, since the original repo hadn't seen any updates for the last couple of years. Anyways, this is just to say thanks to Clint, and please show him your thanks if you find this at all useful.
+> <br>
+> <br>
+>  Maybe I'll keep working on this and add some more stuff to it eventually...
+> <br>
+
+
 A tool to backup and restore Mac preferences.
 
 This will backup and restore Application as well as System Preferences.
