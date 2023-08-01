@@ -4,8 +4,8 @@ dynamic = ["version"]
 urls = { "Source" = "https://github.com/sijanc147/macprefs", "Bug Tracker" = "https://github.com/sijanc147/macprefs/issues" }
 description = "Backup and Restore your Mac System and App Preferences"
 authors = [
-    { name = "Sean Bugeja", email = "seanbugeja23@gmail.com" },
     { name = "Clint M", email = "cmodien@gmail.com" },
+    { name = "Sean Bugeja", email = "seanbugeja23@gmail.com" },
 ]
 requires-python = ">=3.8"
 readme = { file = "README.md", content-type = "text/markdown" }
