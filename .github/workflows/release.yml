@@ -1,9 +1,11 @@
 name: Build and Upload Python Package
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  release:
+    types: [published]
+
+env:
+  RELEASE-ASSET: macprefs-${{ github.event.release.tag_name }}.tar.gz
 
 jobs:
   build:
@@ -29,7 +31,44 @@ jobs:
       - name: debug
         uses: hmarr/debug-action@v2
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: dist/*.tar.gz
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./dist/${{ env.RELEASE-ASSET }}
+          asset_name: ${{ env.RELEASE-ASSET }}
+          asset_content_type: application/gzip
+
+      - name: Update Local Homebrew Formula
+        run: |
+          URL="${{ github.event.repository.url }}/releases/download/${{ github.event.release.tag_name }}/${{ env.RELEASE-ASSET }}"
+          SHA256=$(cat ./dist/${{ env.RELEASE-ASSET }} | shasum -a 256 | cut -f 1 -d ' ')
+          VERSION=${{ github.event.release.tag_name }} && VERSION=${VERSION#v}
+          sed -i "s|^  url \".*\"|  url \"$URL\"|" ./Formula/macprefs.rb
+          sed -i "s/^  version \".*\"/  version \"$VERSION\"/" ./Formula/macprefs.rb
+          sed -i "s/^  sha256 \".*\"/  sha256 \"$SHA256\"/" ./Formula/macprefs.rb
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ./Formula/macprefs.rb
+          git commit -m "Auto update version and sha256 for release ${{ github.event.release.tag_name }}"
+          git push origin main
+
+      - name: Push Homebrew Formula
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PERSONAL_TAP_TOKEN }}
+        with:
+          source_file: ./Formula/macprefs.rb
+          destination_repo: sijanc147/homebrew-formulas
+          destination_folder: Formula
+          user_email: seanbugeja23@gmail.com
+          user_name: Sean Bugeja
+          commit_message: "Auto update version and sha256 for release ${{ github.event.release.tag_name }}"
