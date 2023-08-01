@@ -1,4 +1,4 @@
-include README.rst LICENSE
+include README.md LICENSE
 exclude .gitignore .travis.yml setup.cfg
 
 global-exclude *.pyc
