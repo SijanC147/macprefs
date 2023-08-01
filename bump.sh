@@ -29,8 +29,9 @@ function bump_version() {
   # Update the version in the file
   sed -i "" "s/${current_version}/${new_version}/" macprefs/__init__.py &>/dev/null
   .venv/bin/black macprefs/__init__.py &>/dev/null
+  cp -f macprefs/__init__.py tests/__init__.py
 
-  git add macprefs/__init__.py &>/dev/null
+  git add macprefs/__init__.py tests/__init__.py &>/dev/null
   git commit -m "${bump_type^^} Bump version to ${new_version}" &>/dev/null
   git push origin master &>/dev/null
 
