@@ -1,7 +1,7 @@
 import pathlib
 from setuptools import setup, find_packages
 
-appversion = "2.0.15"
+appversion = "2.0.16"
 
 here = pathlib.Path(__file__).parent.resolve()
 
