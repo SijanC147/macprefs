@@ -6,8 +6,9 @@ import urllib.request
 import urllib.error
 import urllib.parse
 import base64
-from utils import execute_shell, is_none_or_empty_string
-from version import __version__
+
+from macprefs.utils import execute_shell, is_none_or_empty_string
+from macprefs.__init__ import __version__
 
 FORMULA_URL = "https://api.github.com/repos/sijanc147/homebrew-formulas/contents/Formula/macprefs.rb"
 TAR_URL = "https://github.com/sijanc147/macprefs/archive/{}"
@@ -43,7 +44,7 @@ def calc_sha256(filename):
 
 def create_brew_formula_file_content(version, sha256):
     print("Generating base64 encoded brew formula...")
-    with open("macprefs.template.rb", "r") as f:
+    with open("macprefs.template.rb", "r", encoding="utf-8") as f:
         filedata = f.read()
     filedata = filedata.replace("###sha256###", sha256)
     filedata = filedata.replace("###version###", version)

@@ -1,15 +1,15 @@
 import logging as log
-from utils import copy_dir, ensure_dir_owned_by_user
-import config
+from macprefs.utils import copy_dir, ensure_dir_owned_by_user
+from macprefs import config
 
 
 def backup():
-    log.info('Backing up internet accounts db files...')
+    log.info("Backing up internet accounts db files...")
     backup_internet_accounts()
 
 
 def restore():
-    log.info('Restoring internet accounts db files...')
+    log.info("Restoring internet accounts db files...")
     restore_internet_accounts()
 
 
