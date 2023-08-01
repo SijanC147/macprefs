@@ -3,8 +3,8 @@ class Macprefs < Formula
 
   desc "Backup and Restore your Mac System and App Preferences"
   homepage "https://github.com/sijanc147/macprefs"
-  url "https://github.com/sijanc147/macprefs/archive/###version###.tar.gz"
-  sha256 "###sha256###"
+  url "https://api.github.com/repos/SijanC147/macprefs/releases/download/v2.0.14/macprefs-2.0.14.tar.gz"
+  sha256 "af8737725537718fa7b3726a891fc51041f5bf3610060049553b5bc53a441446"
 
   depends_on "python"
 
