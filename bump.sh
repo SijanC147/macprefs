@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function bump_version() {
+  local bump_type=$1
   # Get current version from file
   current_version=$(sed -n "s/__version__ = \"\([^']*\)\"/\1/p" macprefs/__init__.py | tr -d '\n')
 
@@ -8,14 +9,14 @@ function bump_version() {
   IFS='.' read -ra version_parts <<<"$current_version"
 
   # Increment version based on the provided argument
-  if [[ $1 == "major" ]]; then
+  if [[ $bump_type == "major" ]]; then
     ((version_parts[0]++))
     version_parts[1]=0
     version_parts[2]=0
-  elif [[ $1 == "minor" ]]; then
+  elif [[ $bump_type == "minor" ]]; then
     ((version_parts[1]++))
     version_parts[2]=0
-  elif [[ $1 == "patch" ]]; then
+  elif [[ $bump_type == "patch" ]]; then
     ((version_parts[2]++))
   else
     echo "Invalid argument. Please use 'major', 'minor', or 'patch'."
@@ -28,8 +29,9 @@ function bump_version() {
   # Update the version in the file
   sed -i "" "s/${current_version}/${new_version}/" macprefs/__init__.py
 
+
   git add macprefs/__init__.py
-  git commit -m "${1^^} Bump version to ${new_version}"
+  git commit -m "${bump_type^^} Bump version to ${new_version}"
   git push origin master
 
   echo -n "$new_version"
