@@ -1,19 +1,33 @@
 [project]
 name = "macprefs"
-version = "2.0.16"
+dynamic = ["version"]
+# version = "2.0.17"
+urls = { "Source" = "https://github.com/sijanc147/macprefs", "Bug Tracker" = "https://github.com/sijanc147/macprefs/issues" }
 description = "Backup and Restore your Mac System and App Preferences"
 authors = [{ name = "Sean Bugeja", email = "seanbugeja23@gmail.com" }]
-dependencies = [
-    "mock",
-    "pylint",
+requires-python = ">=3.8"
+readme = "README.rst"
+license = { text = "Unlicense" }
+keywords = ["mac", "backup", "prefereces", "prefs"]
+classifiers = [
+    "License :: Public Domain",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = ["mock"]
+
+[project.optional-dependencies]
+tests = [
     "pytest",
     "pytest-cov",
     "pytest-testmon",
     "pytest-watcher>=0.3.4",
+    "mock",
+    "pylint",
 ]
-requires-python = ">=3.8"
-readme = "README.md"
-license = { text = "MIT" }
 
 [project.scripts]
 macprefs = "macprefs.__main__:main"
@@ -21,6 +35,16 @@ macprefs = "macprefs.__main__:main"
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+# [tool.setuptools.packages.find]
+# where = ["macprefs"]
+# exclude = ["tests"]
+
+[tool.setuptools]
+packages = ["macprefs"]
+
+[tool.setuptools.dynamic]
+version = { attr = "macprefs.__version__" }
 
 [tool.pytest.ini_options]
 addopts = "--maxfail=2 -s --tb=native -v -m='not integration'"
