@@ -64,7 +64,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add ./Formula/macprefs.rb
           git commit -m "Auto update version and sha256 for release ${{ github.event.release.tag_name }}"
-          git push origin main
+          git push origin master
 
       - name: Push Homebrew Formula
         uses: dmnemec/copy_file_to_another_repo_action@main
