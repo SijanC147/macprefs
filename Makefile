@@ -6,18 +6,20 @@ clean:
 	rm -rf .coverage
 	rm -rf .testmondata
 	rm -rf cov.xml
+	rm -rf dist
+	rm -rf build
+	rm -rf .pytest_cache
+	rm -rf .pdm-build
+	rm -rf macprefs.egg-info
 
 setup:
-	pip install -r requirements.txt
+	pdm install
 
 test:
 	pytest --cov=. --cov-report xml:cov.xml  --cov-report term-missing
 
 lint:
 	pylint *.py
-
-publish: test
-	python publish.py
 
 release:
 	VERSION=$$(./bump.sh $(TYPE)) && \
@@ -38,4 +40,6 @@ help:
 	@echo "  setup          Setup development environment."
 	@echo "  test           Run tests."
 	@echo "  lint           Run analysis tools."
-	@echo "  publish        Tag and push to github and update the brew formula with the new url and sha256 and push to github"
+	@echo "  patch          Publish new patch version release."
+	@echo "  minor          Publish new minor version release."
+	@echo "  major          Publish new major version release."
