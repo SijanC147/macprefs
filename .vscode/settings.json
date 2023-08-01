@@ -37,6 +37,7 @@
   },
   "python.formatting.provider": "none",
   "files.exclude": {
-    "**/__pycache__": true
+    "**/__pycache__": true,
+    ".coverage": true
   }
 }

@@ -2,14 +2,14 @@ import os
 from os import path
 from unittest.mock import patch
 
-import config
+from macprefs import config
 
 def test_get_macprefs_dir():
     backup_dir = config.get_macprefs_dir()
     assert backup_dir is not None
 
 
-@patch('config.makedirs')
+@patch('macprefs.config.makedirs')
 # pylint: disable=unused-argument
 def test_get_macprefs_dir_works_with_environ(makedirs_mock):
     os.environ['MACPREFS_BACKUP_DIR'] = 'asdf'
@@ -18,8 +18,8 @@ def test_get_macprefs_dir_works_with_environ(makedirs_mock):
     assert 'asdf' in backup_dir
 
 
-@patch('config.path.exists')
-@patch('config.makedirs')
+@patch('macprefs.config.path.exists')
+@patch('macprefs.config.makedirs')
 def test_get_macprefs_dir_creates_if_not_exists(exists_mock, makedirs_mock):
     exists_mock.return_value = False
     config.get_macprefs_dir()

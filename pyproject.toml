@@ -46,7 +46,17 @@ namespaces = false
 version = { attr = "macprefs.__version__" }
 
 [tool.pytest.ini_options]
-addopts = "--maxfail=2 -s --tb=native -v -m='not integration'"
+testpaths = ["tests"]
+addopts = """
+--maxfail=2
+-s
+--tb=native
+-v
+-m='not integration'
+--cov=macprefs
+--cov-report=xml:reports/coverage.xml
+--cov-report=term-missing
+"""
 markers = "integration: integration tests"
 
 [tool.pytest-watcher]
@@ -77,3 +87,7 @@ disable = [
 
 [tool.pdm.dev-dependencies]
 dev = ["black>=23.7.0"]
+
+[tool.pdm.scripts]
+test = "pytest"
+lint = "pylint macprefs/*.py tests/*.py"

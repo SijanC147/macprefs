@@ -1,13 +1,13 @@
 from unittest.mock import patch
-from modules import app_store_preferences
+from macprefs.modules import app_store_preferences
 
 
-@patch("app_store_preferences.copy_files")
+@patch("macprefs.modules.app_store_preferences.copy_files")
 def test_backup(copy_mock):
     app_store_preferences.backup()
     assert copy_mock.call_count > 0
 
-@patch("app_store_preferences.copy_file")
+@patch("macprefs.modules.app_store_preferences.copy_file")
 def test_restore(copy_mock):
     app_store_preferences.restore()
     assert copy_mock.call_count >= 0

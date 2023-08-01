@@ -5,7 +5,7 @@ clean:
 	rm -rf .tmontmp
 	rm -rf .coverage
 	rm -rf .testmondata
-	rm -rf cov.xml
+	rm -rf reports/coverage.*
 	rm -rf dist
 	rm -rf build
 	rm -rf .pytest_cache
@@ -16,10 +16,10 @@ setup:
 	pdm install
 
 test:
-	pytest --cov=. --cov-report xml:cov.xml  --cov-report term-missing
+	pdm run test
 
 lint:
-	pylint *.py
+	pdm run lint
 
 release:
 	VERSION=$$(./bump.sh $(TYPE)) && \
