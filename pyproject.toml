@@ -3,7 +3,10 @@ name = "macprefs"
 dynamic = ["version"]
 urls = { "Source" = "https://github.com/sijanc147/macprefs", "Bug Tracker" = "https://github.com/sijanc147/macprefs/issues" }
 description = "Backup and Restore your Mac System and App Preferences"
-authors = [{ name = "Sean Bugeja", email = "seanbugeja23@gmail.com" }]
+authors = [
+    { name = "Sean Bugeja", email = "seanbugeja23@gmail.com" },
+    { name = "Clint M", email = "cmodien@gmail.com" },
+]
 requires-python = ">=3.8"
 readme = "README.rst"
 license = { text = "Unlicense" }
@@ -36,11 +39,8 @@ requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-exclude = ["tests"]  # exclude packages matching these glob patterns (empty by default)
-namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
-
-# [tool.setuptools]
-# packages = ["macprefs"]
+exclude = ["tests"]
+namespaces = false
 
 [tool.setuptools.dynamic]
 version = { attr = "macprefs.__version__" }
@@ -76,6 +76,4 @@ disable = [
 ]
 
 [tool.pdm.dev-dependencies]
-dev = [
-    "black>=23.7.0",
-]
+dev = ["black>=23.7.0"]
