@@ -12,8 +12,8 @@ jobs:
       - name: Get asset name
         id: asset_name_getter
         run: |
-          VSTR=$(echo ${GITHUB_REF_NAME#v})
-          echo "ASSET_NAME=macprefs-$VSTR.tar.gz" >> $GITHUB_OUTPUT
+          VERSION=${{ github.event.release.tag_name }} && VERSION=${VERSION#v}
+          echo "ASSET_NAME=macprefs-$VERSION.tar.gz" >> $GITHUB_OUTPUT
 
       - name: Checkout code
         uses: actions/checkout@v3
