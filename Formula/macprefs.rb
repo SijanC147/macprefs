@@ -7,6 +7,7 @@ class Macprefs < Formula
   sha256 "411e97b56ab96b8d7fe11dd5febd1c7a79cae4660dd4f32d094fd872c2cf64e4"
 
   depends_on "python"
+  depends_on "rsync"
 
   def install
     virtualenv_install_with_resources
