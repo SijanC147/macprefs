@@ -70,3 +70,8 @@ disable = [
     "invalid-name",
     "line-too-long",
 ]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=23.7.0",
+]
