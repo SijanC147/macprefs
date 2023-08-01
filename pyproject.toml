@@ -1,7 +1,6 @@
 [project]
 name = "macprefs"
 dynamic = ["version"]
-# version = "2.0.17"
 urls = { "Source" = "https://github.com/sijanc147/macprefs", "Bug Tracker" = "https://github.com/sijanc147/macprefs/issues" }
 description = "Backup and Restore your Mac System and App Preferences"
 authors = [{ name = "Sean Bugeja", email = "seanbugeja23@gmail.com" }]
@@ -17,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = ["mock"]
+dependencies = []
 
 [project.optional-dependencies]
 tests = [
@@ -35,10 +34,6 @@ macprefs = "macprefs.__main__:main"
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
-
-# [tool.setuptools.packages.find]
-# where = ["macprefs"]
-# exclude = ["tests"]
 
 [tool.setuptools]
 packages = ["macprefs"]

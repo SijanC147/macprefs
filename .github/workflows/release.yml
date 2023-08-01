@@ -28,6 +28,8 @@ jobs:
           python-version: 3.8
           architecture: x64
           update-python: true
+          cache: true
+          cache-dependency-path: ./pdm.lock
 
       - name: Build project
         run: pdm build
