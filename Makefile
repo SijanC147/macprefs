@@ -17,8 +17,24 @@ lint:
 	pylint *.py
 
 publish: test
-	pdm build
 	python publish.py
+
+# release:
+# 	VERSION=$$(sed -n "s/__version__ = \"\([^']*\)\"/\1/p" macprefs/__init__.py | tr -d '\n') && \
+# 	gh release create v$$VERSION --generate-notes
+
+release:
+	VERSION=$$(./bump.sh $(TYPE)) && \
+	echo "gh release create v$$VERSION --generate-notes"
+
+patch:
+	$(MAKE) release TYPE=patch
+
+minor:
+	$(MAKE) release TYPE=minor
+
+major:
+	$(MAKE) release TYPE=major
 
 help:
 	@echo "COMMANDS:"
